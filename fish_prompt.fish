@@ -81,22 +81,15 @@ function fish_prompt
 
         set -l git_ahead (git_ahead "+" "-" "+-")
 
-        if test "$branch_name" = "master"
-            set branch_name
-            if git_is_stashed
-                set branch_name "{}"
-            end
-        else
-            set -l left_par "("
-            set -l right_par ")"
+        set -l left_par "("
+        set -l right_par ")"
 
-            if git_is_stashed
-                set left_par "{"
-                set right_par "}"
-            end
-
-            set branch_name " $git_color$left_par$color2$branch_name$git_color$right_par"
+        if git_is_stashed
+            set left_par "{"
+            set right_par "}"
         end
+
+        set branch_name " $git_color$left_par$color2$branch_name$git_color$right_par"
 
         echo -sn " $git_color$git_glyph$branch_name$git_ahead"
     end
